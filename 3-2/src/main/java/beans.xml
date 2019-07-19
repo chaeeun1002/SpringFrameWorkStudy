@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="username" value="hr"></property>
+		<property name="password" value="hr"></property>
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver">
+		</property>
+		<property name="url"
+			value="jdbc:oracle:thin:@127.0.0.1:1521:xe">
+		</property>
+	</bean>
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="mybatis-config.xml"></property>
+	</bean>
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	<bean id="teamDao" class="dao.impl.TeamDaoImpl">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<bean id="selectTeamUi" class="ui.SelectTeamUi">
+		<property name="teamDao" ref="teamDao"></property>
+	</bean>
+	<bean id="menuUi" class="ui.MenuUi">
+		<property name="selectTeamUi" ref="selectTeamUi"></property>
+		<property name="insertPlayerUi" ref="insertPlayerUi"></property>
+	</bean>
+	<bean id="playerDao" class="dao.impl.PlayerDaoImpl">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+	<bean id="insertPlayerUi" class="ui.InsertPlayerUi">
+		<property name="teamDao" ref="teamDao"></property>
+		<property name="playerDao" ref="playerDao"></property>
+	</bean>
+	
+	
+	<bean id="myAdvice" class="aop.MyAdvice"></bean>
+	
+	<aop:config>
+		<aop:aspect id="loaAspect" ref="myAdvice">
+			<aop:pointcut expression="execution(* ui.*.*(..)) || execution(* dao.*.*(..))" id="logPointcut"/>
+			<aop:before method="logBefore" pointcut-ref="logPointcut"/>
+		</aop:aspect>
+	</aop:config>
+	
+	
+</beans>
