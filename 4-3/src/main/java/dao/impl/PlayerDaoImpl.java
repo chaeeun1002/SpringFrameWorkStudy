@@ -24,7 +24,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
 	@Override
 	public void insertPlayer(Player player) throws DataAccessException {
-//		EntityManager em = emf.createEntityManager();
+//		EntityManager em = emf.createEntityManager(); //mybatis의 SqlSession 객체와 같은 역할
 //		EntityTransaction et = em.getTransaction();
 //		et.begin();
 		em.persist(player);//JPQL에서의 insert(삽입)은 persist메서드에 의해서 삽입된다.

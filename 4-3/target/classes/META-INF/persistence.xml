@@ -4,6 +4,8 @@
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>model.Team</class>
 		<class>model.Player</class>
+		<class>model.Product</class>
+		<class>model.Shop</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
 			<property name="hibernate.connection.driver.class" value="oracle.jdbc.driver.OracleDriver" />
