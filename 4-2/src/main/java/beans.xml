@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean"
+		  p:persistenceUnitName="4-2"></bean>
+		  
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"></bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory"></bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<bean id="teamDao" class="dao.impl.TeamDaoImpl"></bean>
+	
+	<bean id="playerDao" class="dao.impl.PlayerDaoImpl"></bean>
+	
+	<bean id="selectTeamUi" class="ui.SelectTeamUi" p:teamDao-ref="teamDao"></bean>
+	
+	<bean id="insertPlayerUi" class="ui.InsertPlayerUi" p:playerDao-ref="playerDao" p:teamDao-ref="teamDao"></bean>
+	
+	<bean id="menuUi" class="ui.MenuUi" p:selectTeamUi-ref="selectTeamUi" p:insertPlayerUi-ref="insertPlayerUi"></bean>
+</beans>
