@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe"></property>
+		<property name="username" value="hr"></property>
+		<property name="password" value="hr"></property>
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" 
+			p:dataSource-ref="dataSource" p:configLocation="classpath:/mybatis-config.xml"></bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+	
+	<bean id="itemDao" class="dao.ItemDaoImpl" p:session-ref="sqlSession"></bean>
+	
+	<bean id="itemCatalog" class="logic.ItemCatalogImpl" p:itemDao-ref="itemDao"></bean>
+	
+	<bean id="shopService" class="logic.ShopImpl" p:itemCatalog-ref="itemCatalog"></bean>
+	
+	<bean id="indexController" class="controller.IndexController" 
+			p:shopService-ref="shopService"></bean>
+			
+	<bean id="detailController" class="controller.DetailController" 
+			p:shopService-ref="shopService"></bean>
+			
+	<bean id="internalResourceViewResolver" 
+			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView"></property>
+		<property name="prefix" value="WEB-INF/jsp/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>
+			/index.html=indexController
+			/detail.html=detailController
+			</value>
+		</property>
+	</bean>
+</beans>
