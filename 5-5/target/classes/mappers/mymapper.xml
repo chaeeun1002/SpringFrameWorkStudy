@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.mymapper">
+	<select id="getUser" resultType="model.User" parameterType="model.User">
+		select user_id as userId, password, user_name as userName, postcode, address, email, job, birthday
+		from user_account 
+		where user_id = #{userId} and password = #{password}
+	</select>
+	<insert id="putUser" parameterType="model.User">
+		insert into user_account values(#{userId},#{password},#{userName},#{postCode},#{address},#{email},#{job},#{birthday})
+	</insert>
+	<select id="selectItemList" resultType="model.Item">
+		select item_id as itemId, item_name as itemName, price, description, picture_url as pictureUrl
+		from item
+	</select>
+	<select id="selectItemByID" resultType="model.Item" parameterType="Integer">
+		select item_id as itemId, item_name as itemName, price, description, picture_url as pictureUrl
+		from item where item_id = #{itemId}
+	</select>
+	
+	
+	<select id="getMaxSaleId" resultType="Integer">
+		select max(sale_id) as sale_id from sale
+	</select>
+	<insert id="putSale" parameterType="model.Sale">
+		insert into sale(sale_id, user_id, update_time) values(#{saleId},#{userId},#{updateTime})
+	</insert>
+	<insert id="putSaleDetail" parameterType="model.SaleDetail">
+		insert into sale_detail values(#{saleId},#{saleDetailId},#{itemId},#{quantity},#{updateTime})
+	</insert>
+</mapper>
