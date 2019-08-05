@@ -23,6 +23,9 @@
 	        <property name="suffix" value=".jsp"/>
 	</bean>
 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" 
+		p:maxInMemorySize="5242880" p:maxUploadSize="5242880"></bean>
+
 	<bean id="exceptionHandler" 
 	class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">

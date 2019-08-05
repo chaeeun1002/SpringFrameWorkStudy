@@ -1,11 +1,29 @@
 package model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
+
 public class Item {
 	private Integer itemId;
+	@NotEmpty
 	private String itemName;
+	@NotNull
+	@Min(0)
 	private Integer price;
+	@NotEmpty
 	private String description;
 	private String pictureUrl;
+	private MultipartFile picture;//업로드 파일(이미지)
+	
+	public MultipartFile getPicture() {
+		return picture;
+	}
+	public void setPicture(MultipartFile picture) {
+		this.picture = picture;
+	}
 	public Integer getItemId() {
 		return itemId;
 	}

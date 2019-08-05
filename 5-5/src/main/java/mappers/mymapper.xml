@@ -29,4 +29,29 @@
 	<insert id="putSaleDetail" parameterType="model.SaleDetail">
 		insert into sale_detail values(#{saleId},#{saleDetailId},#{itemId},#{quantity},#{updateTime})
 	</insert>
+	
+	<select id="findItem" resultType="model.Item" parameterType="String">
+		select item_id as itemId, item_name as itemName, description, price, picture_url as pictureUrl 
+		from item
+		where item_name like '%' || #{name} || '%'
+	</select>
+	<insert id="putItem" parameterType="model.Item">
+		insert into item values (#{itemId},#{itemName},#{price},#{description},#{pictureUrl})
+	</insert>
+	<update id="updateItem" parameterType="model.Item">
+		update item set item_name = #{itemName}, price = #{price}, description = #{description},
+		picture_url = #{pictureUrl} where item_id = #{itemId}
+	</update>
+	<delete id="deleteItem" parameterType="Integer">
+		delete from item where item_id = #{itemId}
+	</delete>
+	<select id="getItem" resultType="model.Item" parameterType="Integer">
+		select item_id as itemId, item_name as itemName, description, price, picture_url as pictureUrl 
+		from item
+		where item_id = #{itemId}
+	</select>
+	<select id="getItemList" resultType="model.Item">
+		select item_id as itemId, item_name as itemName, description, price, picture_url as pictureUrl 
+		from item
+	</select>
 </mapper>

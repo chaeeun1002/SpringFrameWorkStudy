@@ -21,4 +21,16 @@ public class ItemDaoImpl implements ItemDao {
 		Item item = session.selectOne("mappers.mymapper.selectItemByID",itemId);
 		return item;
 	}
+	public List<Item> findByItemName(String name) {
+		return session.selectList("mappers.mymapper.findItem",name);
+	}
+	public void create(Item item) {
+		session.insert("mappers.mymapper.putItem",item);
+	}
+	public void update(Item item) {
+		session.update("mappers.mymapper.updateItem",item);
+	}
+	public void delete(Integer id) {
+		session.delete("mappers.mymapper.deleteItem",id);
+	}
 }
