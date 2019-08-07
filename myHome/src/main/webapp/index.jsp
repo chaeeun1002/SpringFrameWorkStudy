@@ -15,3 +15,4 @@
 		<a href="${messageUrl}">Click to enter</a>
 	</body>
 </html>  
+  
