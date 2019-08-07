@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.mymapper">
+	<select id="getMaxBbsId" resultType="Integer">
+		select max(seqno) as max_id from bbs
+	</select>
+	<insert id="putBBS" parameterType="model.Bbs">
+		insert into bbs values(#{seqno},#{title},#{content},#{bbs_date},#{id})
+	</insert>
+	
+	
+	<select id="getUser" resultType="model.User" parameterType="String">
+	 	select user_id as id, user_name as name, password, postcode, address, email, job
+	 	from user_account where user_id = #{id}
+	</select>
+	<select id="getPassword" resultType="String" parameterType="String">
+	 	select password from user_account where user_id = #{id}
+	</select>
+	<select id="checkId" resultType="Integer" parameterType="String">
+		select count(*) from user_account where user_id = #{id}
+	</select>
+	
+	<select id="getBbsList" resultType="model.Bbs" parameterType="model.Condition">
+		select seqno,title,id,content,bbs_date from
+		(
+			select a.*, rownum rn from
+			(
+				(select * from bbs order by seqno desc) a
+			)
+		)where rn between #{startRow} and #{endRow}
+	</select>
+	<select id="getBbsDetail" resultType="model.Bbs" parameterType="Integer">
+		select * from bbs where seqno = #{seqno}
+	</select>
+	<select id="getBbsCount" resultType="Integer">
+		select count(*) as num from bbs
+	</select>
+</mapper>
