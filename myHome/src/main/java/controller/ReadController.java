@@ -47,4 +47,13 @@ public class ReadController {
 		 return mav;
 	}
 	
+	@RequestMapping(value="/read/readDetail.html", method=RequestMethod.GET)
+	public ModelAndView readDetail(Integer SEQNO) {
+		ModelAndView mav = new ModelAndView("home/template");
+		Bbs bbs = writeCatalog.getBbsDetail(SEQNO);
+		mav.addObject("BBS_ITEM",bbs);
+		mav.addObject("BODY","bbsItemView.jsp");
+		return mav;
+	}
+	
 }

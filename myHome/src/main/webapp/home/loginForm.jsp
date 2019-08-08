@@ -16,6 +16,7 @@
 	<font color="red"><form:errors path="password"/></font><br/>
 	<input type="submit" value="로그인"/>
 	<input type="reset" value="취소"/>
+	<a href="../home/entryform.html">가입하기</a>
 </form:form>
 </body>
 </html>

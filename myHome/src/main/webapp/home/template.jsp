@@ -49,8 +49,11 @@ body {
 	<div id="aside">
 		<fieldset>
 			<c:choose>
-				<c:when test="${sessionScope.LOGIN != null }">
+				<c:when test="${sessionScope.loginUser != null }">
 					<jsp:include page="logoutForm.jsp"/>
+				</c:when>
+				<c:when test="${HEADER != null }">
+					<jsp:include page="${HEADER }"/>
 				</c:when>
 				<c:otherwise>
 					<jsp:include page="../login/login.html"></jsp:include>

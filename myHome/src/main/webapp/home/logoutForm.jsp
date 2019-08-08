@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action="logout.do" method="get">
-æ»≥Á«œººø‰? ${sessionScope.LOGIN }¥‘~<br/>
+æ»≥Á«œººø‰? ${sessionScope.loginUser }¥‘~<br/>
 <input type="submit" value="∑Œ±◊æ∆øÙ"/>
 </form>
 </body>

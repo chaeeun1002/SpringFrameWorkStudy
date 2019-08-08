@@ -21,6 +21,7 @@
 		select count(*) from user_account where user_id = #{id}
 	</select>
 	
+	
 	<select id="getBbsList" resultType="model.Bbs" parameterType="model.Condition">
 		select seqno,title,id,content,bbs_date from
 		(
@@ -36,4 +37,10 @@
 	<select id="getBbsCount" resultType="Integer">
 		select count(*) as num from bbs
 	</select>
+	
+	
+	<insert id="putUser" parameterType="model.User">
+		insert into user_account(user_id, user_name, password, email, job, gender) 
+		values(#{id},#{name},#{password},#{email},#{job},#{gender})
+	</insert>
 </mapper>

@@ -64,4 +64,12 @@ public class HomeController {
 			return new ModelAndView("redirect:/read/read.html");//컨트롤러 -> 컨트롤러 매핑
 		}
 	}
+	
+	@RequestMapping(value="home/entryform.html", method=RequestMethod.GET)
+	public ModelAndView entryForm() {
+		ModelAndView mav = new ModelAndView("home/template");
+		mav.addObject("user",new User());
+		mav.addObject("BODY","userentry.jsp");
+		return mav;
+	}
 }

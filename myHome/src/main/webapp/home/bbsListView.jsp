@@ -19,7 +19,7 @@
 	<c:forEach var="cnt" items="${BBS_LIST }">
 		<tr>
 			<td>${cnt.seqno }</td>
-			<td>${cnt.title }</td>
+			<td><a href="../read/readDetail?SEQNO=${cnt.seqno  }">${cnt.title }</a></td>
 			<td>${cnt.id }</td>
 			<td>${cnt.bbs_date }</td>
 		</tr>
