@@ -43,4 +43,50 @@
 		insert into user_account(user_id, user_name, password, email, job, gender) 
 		values(#{id},#{name},#{password},#{email},#{job},#{gender})
 	</insert>
+	
+	
+	<select id="getMaxCode" resultType="Integer">
+		select max(code) from item_info
+	</select>
+	<insert id="putItemInfo" parameterType="model.ItemInfo">
+		insert into item_info(code,name,price,info,origin) values
+		(#{code},#{name},#{price},#{info},#{origin})
+	</insert>
+	
+	
+	<select id="getItemInfoList" resultType="model.ItemInfo" parameterType="model.Condition">
+		select code,name,price,info,origin from
+		(
+			select a.*, rownum rn from
+			(
+				(select * from item_info order by code desc) a
+			)
+		)where rn between #{startRow} and #{endRow}
+	</select>
+	<select id="getItemInfoCount" resultType="Integer">
+		select count(*) as num from item_info
+	</select>
+	<select id="getItemInfoDetail" resultType="model.ItemInfo" parameterType="Integer">
+		select * from item_info where code = #{code}
+	</select>
+	
+	
+	<select id="selectMaxCart" resultType="Integer">
+		select max(seqno) max_seqno from cart
+	</select>
+	<insert id="insertCart" parameterType="model.CartItem">
+		insert into cart values(#{seqno},#{code},#{num},#{id})
+	</insert>
+	<delete id="deleteCart" parameterType="model.CartItem">
+		delete from cart where code=#{code} and id = #{id}
+	</delete>
+	<update id="updateCart" parameterType="model.CartItem">
+		update cart set num = #{num} where code = #{code} and id = #{id}
+	</update>
+	<select id="selectCart" resultType="model.CartItem" parameterType="String">
+		select cart.code code, cart.num num, i.price price,
+		i.name name from cart cart, item_info i
+		where cart.code = i.code
+		and cart.id = #{id} 
+	</select>
 </mapper>

@@ -7,19 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="../logout/template.html" method="get">
-안녕하세요? ${sessionScope.loginUser }님~<br/>
-<input type="submit" value="로그아웃"/>
-</form>
+<h4 align="center">장바구니 담기</h4>
+장바구니에 ${ITEM_NUM }개의 상품을 담았습니다.<br/>
+<a href="#" onClick="self.close()">닫기</a>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-

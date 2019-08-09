@@ -10,7 +10,7 @@
 </head>
 <body>
 <h3 align="center">게시판 글쓰기</h3>
-<form:form modelAttribute="bbs" action="../home/write.html" method="post" onSubmit="return valudate(this)">
+<form:form modelAttribute="bbs" action="../home/write.html" method="post" onSubmit="return validate(this)">
 <h4>제목 : <form:input path="title" cssClass="title"/></h4>
 <font color="red"><form:errors path="title"/></font><br/>
 <form:textarea rows="5" cols="80" path="content"/><br/>
