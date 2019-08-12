@@ -89,4 +89,32 @@
 		where cart.code = i.code
 		and cart.id = #{id} 
 	</select>
+	
+	<select id="getMaxWritingId" resultType="Integer">
+		select max(writing_id) max_id from image_writing
+	</select>
+	<insert id="insertWriting" parameterType="model.Writing">
+		insert into image_writing values(#{writing_id},#{register_date},#{writer_name},
+		#{email},#{image_name},#{password},#{title},#{content})
+	</insert>
+	<select id="getWritingInfoById" resultType="model.Writing" parameterType="Integer">
+		select * from image_writing where writing_id = #{writing_id}
+	</select>
+	<select id="getWritingInfo" resultType="model.Writing" parameterType="model.Condition">
+		select * from(
+			select a.*, rownum rn from (
+				(
+					select * from image_writing
+					order by group_id desc, order_no asc
+				)a
+			)
+		) where rn between #{startRow} and #{endRow}
+	</select>
+	<delete id="deleteWritingInfo" parameterType="Integer">
+		delete from image_writing where writing_id = #{writing_id}
+	</delete>
+	<update id="updateWritingInfo" parameterType="model.Writing">
+		update image_writing set writer_name = #{writer_name}, email = #{email},
+		title = #{title}, content = #{content}, image_name = #{image_name} where writing_id = #{writing_id}
+	</update>
 </mapper>

@@ -9,6 +9,7 @@ import dao.ReadDao;
 import dao.WriteDao;
 import model.Bbs;
 import model.Condition;
+import model.Writing;
 
 @Service
 public class WriteCatalogImpl implements WriteCatalog {
@@ -36,6 +37,30 @@ public class WriteCatalogImpl implements WriteCatalog {
 
 	public Bbs getBbsDetail(Integer id) {
 		return this.readDao.getBbsDetail(id);
+	}
+
+	public void updateWriting(Writing writing) {
+		this.writeDao.updateWriting(writing);
+	}
+
+	public void deleteWriting(Writing writing) {
+		this.writeDao.deleteWriting(writing);
+	}
+
+	public Writing getWritingById(Integer id) {
+		return this.writeDao.getWritingById(id);
+	}
+
+	public void insertWriting(Writing writing) {
+		this.writeDao.insertWriting(writing);
+	}
+
+	public Integer getMaxWritingId() {
+		return this.writeDao.getMaxWritingId();
+	}
+
+	public List<Writing> getWriting(Condition c) {
+		return this.writeDao.getWriting(c);
 	}
 
 }

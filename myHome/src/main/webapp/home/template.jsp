@@ -65,8 +65,8 @@ body {
 			<a href="../read/read.html">자유게시판 읽기</a><br/>
 			<a href="../item/itemTemplate.html">상품정보 등록</a><br/>
 			<a href="../item/read.html">상품목록 보기</a><br/>
-			<a href="">장바구니 보기</a><br/>
-			<a href="">이미지 게시판 작성/답글</a><br/>
+			<a href="../cart/show.html">장바구니 보기</a><br/>
+			<a href="../write/writeForm.html">이미지 게시판 작성/답글</a><br/>
 			<a href="">이미지 게시판 읽기</a>
 		</fieldset>
 	</div>
