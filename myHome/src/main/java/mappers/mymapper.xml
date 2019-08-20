@@ -94,8 +94,8 @@
 		select max(writing_id) max_id from image_writing
 	</select>
 	<insert id="insertWriting" parameterType="model.Writing">
-		insert into image_writing values(#{writing_id},#{register_date},#{writer_name},
-		#{email},#{image_name},#{password},#{title},#{content})
+		insert into image_writing(writing_id, register_date, writer_name, email, image_name, password, title, content) 
+		values(#{writing_id},#{register_date},#{writer_name},#{email},#{image_name},#{password},#{title},#{content})
 	</insert>
 	<select id="getWritingInfoById" resultType="model.Writing" parameterType="Integer">
 		select * from image_writing where writing_id = #{writing_id}
